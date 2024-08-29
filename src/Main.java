@@ -1,17 +1,22 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import  java.util.Date;
+
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        // Create a new Date object for the event date
+        Date eventDate = new Date();
 
-        for (int i = 1; i <= 5; i++) {
+        // Create an instance of the Event class
+        Event myEvent = new Event("Company Meeting", eventDate, "Conference Room A", "Business");
 
+        // Print the event details using the toString() method
+        System.out.println(myEvent.toString());
 
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
-        }
+//        // Access and modify event properties using getters and setters
+//        myEvent.setTitle("Annual Company Meeting");
+//        myEvent.setLocation("Main Conference Hall");
+//
+//        // Print the updated event details
+//        System.out.println(myEvent.toString());
+
     }
 }
