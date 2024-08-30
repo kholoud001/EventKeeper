@@ -29,11 +29,7 @@ public class EventManager {
      * @param updatedEvent The updated event details.
      */
     public void modifyEvent(int index, Event updatedEvent) {
-        if (index >= 0 && index < events.size()) {
-            events.set(index, updatedEvent);
-        } else {
-            System.out.println("Invalid event index.");
-        }
+        events.set(index, updatedEvent);
     }
 
     /**
@@ -69,7 +65,7 @@ public class EventManager {
      * @param location The location to search for.
      * @param type The type to search for.
      */
-    public void searchEvents(Date date, String location, String type) {
+    public void searchEvents1(Date date, String location, String type) {
         ArrayList<Event> filteredEvents = events.stream()
                 .filter(e -> (date == null || e.getDate().equals(date)) &&
                         (location == null || e.getLocation().equalsIgnoreCase(location)) &&
@@ -81,5 +77,33 @@ public class EventManager {
         } else {
             filteredEvents.forEach(System.out::println);
         }
+    }
+
+    public void searchEvents(Date date, String location, String type) {
+        ArrayList<Event> filteredEvents = new ArrayList<>();
+
+        for (int i=0; i<events.size(); i++) {
+            Event event = events.get(i);
+            boolean matches = false;
+
+            if (event.getDate().equals(date)) {
+                matches = true;
+            }
+            if (event.getLocation().equalsIgnoreCase(location)) {
+                matches = true;
+            }
+            if (event.getType().equalsIgnoreCase(type)) {
+                matches = true;
+            }
+            if (matches) {
+                filteredEvents.add(event);
+            }
+        }
+        if (filteredEvents.isEmpty()) {
+            System.out.println("No matching events found.");
+        } else {
+            filteredEvents.forEach(System.out::println);
+        }
+
     }
 }
