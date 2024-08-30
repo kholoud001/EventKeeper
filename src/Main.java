@@ -8,50 +8,126 @@ import java.util.Scanner;
  */
 public class Main {
     private static EventManager eventManager = new EventManager();
+    private static  UserManager userManager = new UserManager();
     private static Scanner scanner = new Scanner(System.in);
     private static SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
     public static void main(String[] args) {
-        boolean running = true;
-        while (running) {
-            printMenu();
-            int choice = Integer.parseInt(scanner.nextLine());
 
+        User currentUser = createUser();
+        boolean running = true;
+
+        while (running) {
+            if(currentUser.getRole()==Role.ADMIN) {
+                printAdminMenu();
+                int choice = Integer.parseInt(scanner.nextLine());
+                switch (choice) {
+                    case 1:
+                        addEvent();
+                        break;
+                    case 2:
+                        modifyEvent();
+                        break;
+                    case 3:
+                        deleteEvent();
+
+                        break;
+                    case 4:
+                        displayEvents();
+                        break;
+                    case 5:
+                        searchEvents();
+                        break;
+                    case 6:
+                        modifyUser();
+                        break;
+                    case 7:
+                        displayUsers();
+                        break;
+                    case 8:
+                        currentUser = createUser();
+                        break;
+                    case 0:
+                        running = false;
+                        break;
+                    default:
+                        System.out.println("Invalid choice. Please try again.");
+                }
+            }
+            if(currentUser.getRole()==Role.PARTICIPANT) {
+                printParticipantMenu();
+            int choice = Integer.parseInt(scanner.nextLine());
             switch (choice) {
-                case 1:
-                    addEvent();
-                    break;
-                case 2:
-                    modifyEvent();
-                    break;
-                case 3:
-                    deleteEvent();
-                    break;
-                case 4:
-                    displayEvents();
-                    break;
-                case 5:
-                    searchEvents();
-                    break;
-                case 6:
-                    running = false;
-                    break;
-                default:
-                    System.out.println("Invalid choice. Please try again.");
+
+                    case 1:
+                        displayEvents();
+                        break;
+                    case 2:
+                        searchEvents();
+                        break;
+                    case 3:
+                        modifyUser();
+                        break;
+                    case 4:
+                        currentUser = createUser();
+                        break;
+                    case 0:
+                        running = false;
+                        break;
+                    default:
+                        System.out.println("Invalid choice. Please try again.");
+                }
             }
         }
     }
 
-    private static void printMenu() {
-        System.out.println("\nEvent Management Menu:");
+
+
+    private static void printAdminMenu() {
+        System.out.println("\n ***Event Management Section: *** ");
         System.out.println("1. Add Event");
         System.out.println("2. Modify Event");
         System.out.println("3. Delete Event");
         System.out.println("4. Display All Events");
         System.out.println("5. Search Events");
-        System.out.println("6. Exit");
+        System.out.println("\n ***  Participant Management Section: *** ");
+        System.out.println("6. Modifier les détails d'un participant\"");
+        System.out.println("7. Display All Participants");
+        System.out.println("8 switch account");
+        System.out.println("0. Exit");
+
         System.out.print("Choose an option: ");
     }
+
+    private static void printParticipantMenu() {
+        System.out.println("\n ****  Participant Menu: ****");
+        System.out.println("1. Display All Events");
+        System.out.println("2. Search Events");
+        System.out.println("3. Modifier les détails d'un participant");
+        System.out.println("4. Switch account");
+        System.out.println("0. Exit");
+        System.out.print("Choose an option: ");
+    }
+
+    private static User createUser() {
+        System.out.println(" ****** Please Enter your informations ************* ");
+        System.out.print("Enter your name: ");
+        String name = scanner.nextLine();
+
+        System.out.print("Enter your email: ");
+        String email = scanner.nextLine();
+
+        System.out.println("Select your role: 1. Admin 2. Participant");
+        int roleChoice = Integer.parseInt(scanner.nextLine());
+        Role role = (roleChoice == 1) ? Role.ADMIN : Role.PARTICIPANT;
+
+        User newUser = new User(name, email, role);
+        userManager.addUser(newUser);
+
+        System.out.println("User added successfully as " + (role == Role.ADMIN ? "Admin." : "Particpant."));
+        return newUser;
+    }
+
 
     private static void addEvent() {
         System.out.print("Enter event title: ");
@@ -130,4 +206,32 @@ public class Main {
             return null;
         }
     }
+
+    private static void displayUsers() {
+        System.out.println("\nUser List:");
+        userManager.displayUsers();
+    }
+
+    //Modify person detail
+    private static void modifyUser(){
+        System.out.print("Enter the participant number to modify: ");
+        int index = Integer.parseInt(scanner.nextLine()) - 1;
+
+        System.out.print("Enter new participant name: ");
+        String name = scanner.nextLine();
+
+        System.out.print("Enter new participant email): ");
+        String email = scanner.nextLine();
+
+        System.out.println("Select your role: 1. Admin 2. Participant");
+        int roleChoice = Integer.parseInt(scanner.nextLine());
+        Role role = (roleChoice == 1) ? Role.ADMIN : Role.PARTICIPANT;
+
+        User updatedUser = new User(name,email,role);
+        userManager.modifyUser(index, updatedUser);
+        System.out.println("User modified successfully.");
+
+    }
+
+
 }
