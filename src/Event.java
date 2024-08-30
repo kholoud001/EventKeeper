@@ -1,10 +1,15 @@
 import  java.util.Date;
+import java.text.SimpleDateFormat;
+
 
 public class Event {
     private String title;
     private Date date;
     private String location;
     private String type;
+
+
+    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
     public Event(String title, Date date, String location, String type) {
         this.title = title;
@@ -46,10 +51,9 @@ public class Event {
         this.type = type;
     }
 
-    @Override
-    public String toString() {
 
-        return "[" + title + "," + date + ", " + location + ", " + type + "]";
+    public String toString() {
+        return "[" + title + ", " + dateFormat.format(date) + ", " + location + ", " + type + "]";
     }
 
 }
