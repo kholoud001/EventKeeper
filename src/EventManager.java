@@ -125,7 +125,7 @@ public class EventManager {
         if (index >= 0 && index < events.size()) {
             Event event = events.get(index);
             event.addParticipant(user);
-            System.out.println(user.getName() + " has been registered for the event: " + event.getTitle());
+            //System.out.println(user.getName() + " has been registered for the event: " + event.getTitle());
         } else {
             System.out.println("Invalid event number.");
         }
@@ -135,7 +135,7 @@ public class EventManager {
         if (index >= 0 && index < events.size()) {
             Event event = events.get(index);
             if (event.removeParticipant(user)) {
-                System.out.println(user.getName() + " has been unregistered from the event: " + event.getTitle());
+               // System.out.println(user.getName() + " has been unregistered from the event: " + event.getTitle());
             } else {
                 System.out.println(user.getName() + " is not registered for this event.");
             }
