@@ -41,9 +41,26 @@ public class UserManager {
             }
         }
     }
+    public void displayParticipants() {
+        int count = 0;
+
+        for (int i = 0; i < users.size(); i++) {
+            if (users.get(i).getRole() == Role.PARTICIPANT) {
+                count++;
+                System.out.println(count + ". " + users.get(i).getName());
+            }
+        }
+
+        if (count == 0) {
+            System.out.println("There are no participants.");
+        }
+    }
+
+
     public boolean isAdmin(User user) {
         return user.getRole() == Role.ADMIN;
     }
+
 
 
 }

@@ -14,7 +14,10 @@ public class Main {
 
     public static void main(String[] args) {
 
-        User currentUser = createUser();
+        User currentUser = createUser1();
+      //  User currentUser = new User("Admin", "admin@example.com", Role.ADMIN);
+       // userManager.addUser(currentUser);
+
         boolean running = true;
 
         while (running) {
@@ -45,7 +48,15 @@ public class Main {
                         displayUsers();
                         break;
                     case 8:
-                        currentUser = createUser();
+                        Event selectedEvent = selectEvent();
+                        if (selectedEvent != null) {
+                            displayEventSubs(selectedEvent);
+                        } else {
+                            System.out.println("No event selected.");
+                        }
+                        break;
+                    case 9:
+                        currentUser = loginUser();
                         break;
                     case 0:
                         running = false;
@@ -60,16 +71,16 @@ public class Main {
             switch (choice) {
 
                     case 1:
-                        displayEvents();
+                        displayEventsWithOptions(currentUser);
                         break;
                     case 2:
                         searchEvents();
                         break;
+//                    case 3:
+//                        modifyUser();
+//                        break;
                     case 3:
-                        modifyUser();
-                        break;
-                    case 4:
-                        currentUser = createUser();
+                        currentUser = createUser1();
                         break;
                     case 0:
                         running = false;
@@ -93,7 +104,8 @@ public class Main {
         System.out.println("\n ***  Participant Management Section: *** ");
         System.out.println("6. Modifier les détails d'un participant\"");
         System.out.println("7. Display All Participants");
-        System.out.println("8 switch account");
+        System.out.println(("8. Display the subs for an event"));
+        System.out.println("9 switch account");
         System.out.println("0. Exit");
 
         System.out.print("Choose an option: ");
@@ -103,13 +115,13 @@ public class Main {
         System.out.println("\n ****  Participant Menu: ****");
         System.out.println("1. Display All Events");
         System.out.println("2. Search Events");
-        System.out.println("3. Modifier les détails d'un participant");
-        System.out.println("4. Switch account");
+//        System.out.println("3. Modifier les détails d'un participant");
+        System.out.println("3. Switch account");
         System.out.println("0. Exit");
         System.out.print("Choose an option: ");
     }
 
-    private static User createUser() {
+    private static User createUser1() {
         System.out.println(" ****** Please Enter your informations ************* ");
         System.out.print("Enter your name: ");
         String name = scanner.nextLine();
@@ -127,6 +139,26 @@ public class Main {
         System.out.println("User added successfully as " + (role == Role.ADMIN ? "Admin." : "Particpant."));
         return newUser;
     }
+
+    private static User loginUser() {
+
+            System.out.println(" ****** Log in as Participant  ************* ");
+            System.out.print("Enter your name: ");
+            String name = scanner.nextLine();
+
+            System.out.print("Enter your email: ");
+            String email = scanner.nextLine();
+
+            Role role = Role.PARTICIPANT;
+
+            User newUser = new User(name, email, role);
+            userManager.addUser(newUser);
+
+            System.out.println("User Logged in successfully as Participant.");
+            return newUser;
+
+    }
+
 
 
     private static void addEvent() {
@@ -181,6 +213,73 @@ public class Main {
         eventManager.displayEvents();
     }
 
+    private static void displayEventSubs(Event event) {
+        eventManager.afficherInscriptions(event);
+    }
+
+    private static Event selectEvent() {
+        displayEvents();
+
+        System.out.println("Select an event:");
+
+        int eventIndex = Integer.parseInt(scanner.nextLine()) - 1;
+
+        if (eventIndex >= 0 && eventIndex < eventManager.getEvents().size()) {
+            return eventManager.getEvents().get(eventIndex);
+        } else {
+            System.out.println("Invalid selection.");
+            return null;
+        }
+    }
+
+
+    private static void displayEventsWithOptions(User currentUser) {
+        System.out.println("\nEvent List:");
+        eventManager.displayEvents();
+
+        System.out.println("\nWould you like to:");
+        System.out.println("1. Register for an Event");
+        System.out.println("2. Unregister from an Event");
+        System.out.println("0. Return to Menu");
+        System.out.print("Choose an option: ");
+        int choice = Integer.parseInt(scanner.nextLine());
+
+        switch (choice) {
+            case 1:
+                registerForEvent(currentUser);
+                break;
+            case 2:
+                unregisterFromEvent(currentUser);
+                break;
+            case 0:
+                break;
+            default:
+                System.out.println("Invalid choice. Returning to menu.");
+        }
+    }
+
+    private static void registerForEvent(User user) {
+        System.out.print("Enter the event number to register: ");
+        int eventIndex = Integer.parseInt(scanner.nextLine()) - 1;
+
+        Event event = eventManager.getEvent(eventIndex);
+
+        if (event.isParticipantRegistered(user)) {
+            System.out.println("You are already registered for this event.");
+        } else {
+            eventManager.registerUserForEvent(eventIndex, user); // Register the user
+            System.out.println("You have registered for the event successfully.");
+        }
+    }
+
+
+    private static void unregisterFromEvent(User user) {
+        System.out.print("Enter the event number to unregister: ");
+        int eventIndex = Integer.parseInt(scanner.nextLine()) - 1;
+        eventManager.unregisterUserFromEvent(eventIndex, user);
+        System.out.println("You have unregistered from the event successfully.");
+    }
+
     private static void searchEvents() {
         System.out.print("Enter event date (dd-MM-yyyy) to search (leave blank to skip): ");
         Date date = parseDate(scanner.nextLine());
@@ -207,9 +306,10 @@ public class Main {
         }
     }
 
-    private static void displayUsers() {
-        System.out.println("\nUser List:");
-        userManager.displayUsers();
+    private static void     displayUsers() {
+        System.out.println("\nParticipant List:");
+       userManager.displayParticipants();
+       // userManager.displayUsers();
     }
 
     //Modify person detail

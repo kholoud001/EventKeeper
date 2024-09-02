@@ -1,5 +1,7 @@
+import java.util.ArrayList;
 import  java.util.Date;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 
 public class Event {
@@ -7,6 +9,8 @@ public class Event {
     private Date date;
     private String location;
     private String type;
+    private List<User> participants;
+
 
 
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -16,6 +20,8 @@ public class Event {
         this.date = date;
         this.location = location;
         this.type = type;
+        this.participants = new ArrayList<>();
+
     }
 
     // Getters and setters for each attribute
@@ -51,6 +57,26 @@ public class Event {
         this.type = type;
     }
 
+
+    public List<User> getParticipants() {
+        return participants;
+    }
+
+    public void addParticipant(User user) {
+        if (!participants.contains(user)) {
+            participants.add(user);
+        } else {
+            System.out.println(user.getName() + " is already registered for this event.");
+        }
+    }
+
+    public boolean removeParticipant(User user) {
+        return participants.remove(user);
+    }
+
+    public boolean isParticipantRegistered(User user) {
+        return participants.contains(user);
+    }
 
     public String toString() {
         return "[" + title + ", " + dateFormat.format(date) + ", " + location + ", " + type + "]";
