@@ -68,6 +68,9 @@ public class Main {
 
                         break;
                     case 10:
+                        deleteUser();
+                        break;
+                    case 11:
                         currentUser = loginUser();
                         break;
                     case 0:
@@ -118,7 +121,8 @@ public class Main {
         System.out.println("7. Display All Participants");
         System.out.println(("8. Display the Participants for an event"));
         System.out.println("9. Display Events of a Participant");
-        System.out.println("10 switch account");
+        System.out.println("10. Delete a participant");
+        System.out.println("11 switch account");
         System.out.println("0. Exit");
 
         System.out.print("Choose an option: ");
@@ -353,6 +357,7 @@ public class Main {
 
     //Modify person detail
     private static void modifyUser(){
+        displayUsers();
         System.out.print("Enter the participant number to modify: ");
         int index = Integer.parseInt(scanner.nextLine()) - 1;
 
@@ -369,6 +374,15 @@ public class Main {
         User updatedUser = new User(name,email,role);
         userManager.modifyUser(index, updatedUser);
         System.out.println("User modified successfully.");
+
+    }
+
+    private static void deleteUser() {
+        displayUsers();
+        System.out.print("Enter the participant number to delete: ");
+        int index = Integer.parseInt(scanner.nextLine()) - 1;
+        userManager.removeUser(index);
+        System.out.println("User removed successfully.");
 
     }
 
