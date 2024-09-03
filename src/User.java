@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 enum Role{
     ADMIN, PARTICIPANT
 }
@@ -6,11 +9,15 @@ public class User {
     private String name;
     private String email;
     private Role role;
+    private List<Event> events;
+
 
     public User(String name, String email, Role role) {
         this.name = name;
         this.email = email;
         this.role = role;
+        this.events = new ArrayList<>();
+
     }
     public String getName(){
         return name;
@@ -34,9 +41,23 @@ public class User {
         String string = role.toString();
         return string;
     }
+
+    public List<Event> getEvents() {
+        return events;
+    }
+
+    public void addEvent(Event event) {
+        this.events.add(event);
+    }
+
+    @Override
     public String toString(){
         return "["+name+","+email+","+role+"]";
     }
+
+
+
+
 
 }
 

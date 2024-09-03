@@ -124,12 +124,19 @@ public class EventManager {
     public void registerUserForEvent(int index, User user) {
         if (index >= 0 && index < events.size()) {
             Event event = events.get(index);
-            event.addParticipant(user);
-            //System.out.println(user.getName() + " has been registered for the event: " + event.getTitle());
+            if (!user.getEvents().contains(event)) {
+                user.addEvent(event);
+                event.addParticipant(user);
+                System.out.println(user.getName() + " has been registered for the event: " + event.getTitle());
+            } else {
+                System.out.println(user.getName() + " is already registered for the event: " + event.getTitle());
+            }
         } else {
             System.out.println("Invalid event number.");
         }
     }
+
+
 
     public void unregisterUserFromEvent(int index, User user) {
         if (index >= 0 && index < events.size()) {
@@ -156,5 +163,55 @@ public class EventManager {
             }
         }
     }
+
+    public void afficherEvenementsPourParticipant(User participant) {
+        List<Event> registeredEvents = participant.getEvents();
+
+        if (registeredEvents.isEmpty()) {
+            System.out.println(participant.getName() + " n'est inscrit à aucun événement.");
+        } else {
+            System.out.println("Événements auxquels " + participant.getName() + " est inscrit :");
+            for (int i = 0; i < registeredEvents.size(); i++) {
+                System.out.println((i + 1) + ". " + registeredEvents.get(i).getTitle());
+            }
+        }
+    }
+
+
+//    public void affciheEvent(User participant) {
+//        List<Event> events = participant.getEvents();
+//
+//        if (events.isEmpty()) {
+//            System.out.println("Il n'y a pas d'inscriptions pour cet événement.");
+//        } else {
+//            System.out.println("Participants inscrits pour l'événement " + event.getTitle() + ":");
+//            for (int i = 0; i < participants.size(); i++) {
+//                System.out.println((i + 1) + ". " + participants.get(i).getName());
+//            }
+//        }
+//    }
+//
+//    public void afficherEvenementsPourParticipant(User participant, List<Event> events) {
+//        boolean isRegistered = false;
+//        System.out.println(events);
+//        System.out.println("Événements auxquels " + participant.getName() + " est inscrit :");
+//        for (Event event : events) {
+//            System.out.println("Event: " + event.getTitle());
+//            System.out.println("Participants: " + event.getParticipants().stream()
+//                    .map(User::getName)
+//                    .collect(Collectors.joining(", ")));
+//            if (event.getParticipants().contains(participant)) {
+//                System.out.println("- " + event.getTitle());
+//                isRegistered = true;
+//            }
+//        }
+//        if (!isRegistered) {
+//            System.out.println(participant.getName() + " n'est inscrit à aucun événement.");
+//        }
+//    }
+//
+
+
+
 
 }

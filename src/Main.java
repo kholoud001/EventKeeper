@@ -2,6 +2,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 
 /**
  * Main application class for managing events.
@@ -12,11 +16,15 @@ public class Main {
     private static Scanner scanner = new Scanner(System.in);
     private static SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
+
     public static void main(String[] args) {
 
         User currentUser = createUser1();
       //  User currentUser = new User("Admin", "admin@example.com", Role.ADMIN);
        // userManager.addUser(currentUser);
+
+        ArrayList<User> users = new ArrayList<>();
+        List<Event> events = new ArrayList<>();
 
         boolean running = true;
 
@@ -56,6 +64,10 @@ public class Main {
                         }
                         break;
                     case 9:
+                        displayEventsForSelectedParticipant(userManager, scanner, eventManager);
+
+                        break;
+                    case 10:
                         currentUser = loginUser();
                         break;
                     case 0:
@@ -104,8 +116,9 @@ public class Main {
         System.out.println("\n ***  Participant Management Section: *** ");
         System.out.println("6. Modifier les détails d'un participant\"");
         System.out.println("7. Display All Participants");
-        System.out.println(("8. Display the subs for an event"));
-        System.out.println("9 switch account");
+        System.out.println(("8. Display the Participants for an event"));
+        System.out.println("9. Display Events of a Participant");
+        System.out.println("10 switch account");
         System.out.println("0. Exit");
 
         System.out.print("Choose an option: ");
@@ -217,6 +230,31 @@ public class Main {
         eventManager.afficherInscriptions(event);
     }
 
+    public static void displayEventsForSelectedParticipant(UserManager userManager, Scanner scanner, EventManager eventManager) {
+        ArrayList<User> users = userManager.getUsers();
+        ArrayList<User> participants = (ArrayList<User>) users.stream()
+                .filter(user -> user.getRole() == Role.PARTICIPANT)
+                .collect(Collectors.toList());
+
+        if (participants.isEmpty()) {
+            System.out.println("No participants available.");
+            return;
+        }
+
+        System.out.println("Select a participant:");
+        for (int i = 0; i < participants.size(); i++) {
+            System.out.println((i + 1) + ". " + participants.get(i).getName());
+        }
+
+        int participantIndex = Integer.parseInt(scanner.nextLine()) - 1;
+        if (participantIndex >= 0 && participantIndex < participants.size()) {
+            User selectedParticipant = participants.get(participantIndex);
+            eventManager.afficherEvenementsPourParticipant(selectedParticipant);
+        } else {
+            System.out.println("Invalid participant selected.");
+        }
+    }
+
     private static Event selectEvent() {
         displayEvents();
 
@@ -267,7 +305,7 @@ public class Main {
         if (event.isParticipantRegistered(user)) {
             System.out.println("You are already registered for this event.");
         } else {
-            eventManager.registerUserForEvent(eventIndex, user); // Register the user
+            eventManager.registerUserForEvent(eventIndex, user);
             System.out.println("You have registered for the event successfully.");
         }
     }

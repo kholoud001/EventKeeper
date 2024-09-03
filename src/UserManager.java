@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Class for managing users.
@@ -8,6 +10,10 @@ public class UserManager {
 
     public UserManager() {
         users = new ArrayList<>();
+    }
+
+    public ArrayList<User> getUsers() {
+        return users;
     }
     /**
      * Adds a new user to the list.

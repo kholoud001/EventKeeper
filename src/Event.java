@@ -24,6 +24,8 @@ public class Event {
 
     }
 
+
+
     // Getters and setters for each attribute
     public String getTitle() {
         return title;
@@ -61,6 +63,8 @@ public class Event {
     public List<User> getParticipants() {
         return participants;
     }
+
+
 
     public void addParticipant(User user) {
         if (!participants.contains(user)) {
