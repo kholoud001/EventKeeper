@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Class for managing users.
@@ -15,6 +16,13 @@ public class UserManager {
     public ArrayList<User> getUsers() {
         return users;
     }
+
+    public ArrayList<User> getParticipants() {
+        return (ArrayList<User>) users.stream()
+                .filter(user -> user.getRole() == Role.PARTICIPANT)
+                .collect(Collectors.toList());
+    }
+
     /**
      * Adds a new user to the list.
      *

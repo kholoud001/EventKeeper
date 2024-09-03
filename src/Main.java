@@ -357,31 +357,35 @@ public class Main {
 
     //Modify person detail
     private static void modifyUser(){
-        List<User> users = userManager.getUsers();
+        List<User> users = userManager.getParticipants();
 
         if (users.isEmpty()) {
             System.out.println("No participants available to modify.");
             return;
         }
-        displayUsers();
+
         displayUsers();
         System.out.print("Enter the participant number to modify: ");
         int index = Integer.parseInt(scanner.nextLine()) - 1;
 
+        if (index < 0 || index >= users.size()) {
+            System.out.println("Invalid participant number.");
+            return;
+        }
+
         System.out.print("Enter new participant name: ");
         String name = scanner.nextLine();
 
-        System.out.print("Enter new participant email): ");
+        System.out.print("Enter new participant email: ");
         String email = scanner.nextLine();
 
         System.out.println("Select your role: 1. Admin 2. Participant");
         int roleChoice = Integer.parseInt(scanner.nextLine());
         Role role = (roleChoice == 1) ? Role.ADMIN : Role.PARTICIPANT;
 
-        User updatedUser = new User(name,email,role);
+        User updatedUser = new User(name, email, role);
         userManager.modifyUser(index, updatedUser);
         System.out.println("User modified successfully.");
-
     }
 
     private static void deleteUser() {
