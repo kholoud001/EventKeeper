@@ -15,6 +15,9 @@ public class Main {
     private static  UserManager userManager = new UserManager();
     private static Scanner scanner = new Scanner(System.in);
     private static SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+    private static ReportGenerator reportGenerator = new ReportGenerator();
+
+
 
 
     public static void main(String[] args) {
@@ -25,6 +28,7 @@ public class Main {
 
         ArrayList<User> users = new ArrayList<>();
         List<Event> events = new ArrayList<>();
+
 
         boolean running = true;
 
@@ -73,6 +77,9 @@ public class Main {
                     case 11:
                         currentUser = loginUser();
                         break;
+                    case 12:
+                        generateReport();
+                        break;
                     case 0:
                         running = false;
                         break;
@@ -108,7 +115,11 @@ public class Main {
     }
 
 
+    private static void generateReport(){
+        List<User> participants = userManager.getParticipants();
+        reportGenerator.generateParticipantsReport(participants, "participants_report.txt");
 
+    }
     private static void printAdminMenu() {
         System.out.println("\n ***Event Management Section: *** ");
         System.out.println("1. Add Event");
@@ -123,6 +134,7 @@ public class Main {
         System.out.println("9. Display Events of a Participant");
         System.out.println("10. Delete a participant");
         System.out.println("11 switch account");
+        System.out.println("12. Generate Report");
         System.out.println("0. Exit");
 
         System.out.print("Choose an option: ");
