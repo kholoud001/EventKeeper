@@ -389,6 +389,12 @@ public class Main {
     }
 
     private static void deleteUser() {
+        List<User> users = userManager.getParticipants();
+
+        if (users.isEmpty()) {
+            System.out.println("No participants available to delete.");
+            return;
+        }
         displayUsers();
         System.out.print("Enter the participant number to delete: ");
         int index = Integer.parseInt(scanner.nextLine()) - 1;
