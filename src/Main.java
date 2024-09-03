@@ -357,6 +357,13 @@ public class Main {
 
     //Modify person detail
     private static void modifyUser(){
+        List<User> users = userManager.getUsers();
+
+        if (users.isEmpty()) {
+            System.out.println("No participants available to modify.");
+            return;
+        }
+        displayUsers();
         displayUsers();
         System.out.print("Enter the participant number to modify: ");
         int index = Integer.parseInt(scanner.nextLine()) - 1;
