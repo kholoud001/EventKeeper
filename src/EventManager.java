@@ -178,39 +178,6 @@ public class EventManager {
     }
 
 
-//    public void affciheEvent(User participant) {
-//        List<Event> events = participant.getEvents();
-//
-//        if (events.isEmpty()) {
-//            System.out.println("Il n'y a pas d'inscriptions pour cet événement.");
-//        } else {
-//            System.out.println("Participants inscrits pour l'événement " + event.getTitle() + ":");
-//            for (int i = 0; i < participants.size(); i++) {
-//                System.out.println((i + 1) + ". " + participants.get(i).getName());
-//            }
-//        }
-//    }
-//
-//    public void afficherEvenementsPourParticipant(User participant, List<Event> events) {
-//        boolean isRegistered = false;
-//        System.out.println(events);
-//        System.out.println("Événements auxquels " + participant.getName() + " est inscrit :");
-//        for (Event event : events) {
-//            System.out.println("Event: " + event.getTitle());
-//            System.out.println("Participants: " + event.getParticipants().stream()
-//                    .map(User::getName)
-//                    .collect(Collectors.joining(", ")));
-//            if (event.getParticipants().contains(participant)) {
-//                System.out.println("- " + event.getTitle());
-//                isRegistered = true;
-//            }
-//        }
-//        if (!isRegistered) {
-//            System.out.println(participant.getName() + " n'est inscrit à aucun événement.");
-//        }
-//    }
-//
-
 
 
 
