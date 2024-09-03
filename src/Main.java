@@ -194,7 +194,8 @@ public class Main {
 
     private static void modifyEvent() {
         displayEvents();
-        System.out.print("Enter the event number to modify: ");
+
+        System.out.print("Enter the event number to modify: \n ");
         int index = Integer.parseInt(scanner.nextLine()) - 1;
 
         System.out.print("Enter new event title: ");
