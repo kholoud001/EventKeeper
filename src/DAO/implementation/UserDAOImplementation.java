@@ -1,23 +1,32 @@
-import Enums.Role;
+package DAO.implementation;
+
+import DAO.interfaces.UserDAOInterface;
 import Entities.User;
+import Enums.Role;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-/**
- * Class for managing users.
- */
-public class UserManager {
+public class UserDAOImplementation implements UserDAOInterface {
     private ArrayList<User> users;
 
-    public UserManager() {
+    public UserDAOImplementation() {
         users = new ArrayList<>();
     }
-
+    /**
+     * Retrieves the list of all users.
+     *
+     * @return An ArrayList containing all User objects.
+     */
     public ArrayList<User> getUsers() {
         return users;
     }
 
+    /**
+     * Retrieves the list of participants.
+     *
+     * @return An ArrayList containing User objects with the role of PARTICIPANT.
+     */
     public ArrayList<User> getParticipants() {
         return (ArrayList<User>) users.stream()
                 .filter(user -> user.getRole() == Role.PARTICIPANT)
@@ -47,6 +56,11 @@ public class UserManager {
     public void removeUser(int index) {
         users.remove(index);
     }
+
+    /**
+     * Displays a list of all the users.
+     *
+     */
     public void displayUsers() {
         if (users.isEmpty()) {
             System.out.println("There are no users");
@@ -56,6 +70,11 @@ public class UserManager {
             }
         }
     }
+
+    /**
+     * Displays a list of all participants.
+     *
+     */
     public void displayParticipants() {
         int count = 0;
 
@@ -65,18 +84,18 @@ public class UserManager {
                 System.out.println(count + ". " + users.get(i).getName());
             }
         }
-
         if (count == 0) {
             System.out.println("There are no participants.");
         }
     }
 
-
+    /**
+     * Checks if the given user has an admin role.
+     *
+     * @param user The User object whose role is to be checked.
+     * @return true if the user has the role of ADMIN, false otherwise.
+     */
     public boolean isAdmin(User user) {
         return user.getRole() == Role.ADMIN;
     }
-
-
-
 }
-

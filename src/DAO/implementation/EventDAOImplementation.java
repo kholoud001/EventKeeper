@@ -1,19 +1,18 @@
+package DAO.implementation;
+
+import DAO.interfaces.EventDAOInterface;
 import Entities.Event;
 import Entities.User;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Date;
+import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Class for managing events.
- */
-public class EventManager {
-
+public class EventDAOImplementation implements EventDAOInterface{
     private ArrayList<Event> events;
 
-    public EventManager() {
+    public EventDAOImplementation() {
         events = new ArrayList<>();
     }
 
@@ -124,6 +123,14 @@ public class EventManager {
 
     }
 
+    /**
+     * Registers a user for a specified event.
+     *
+     * @param index The index of the event in the events list. It should be within the valid range
+     *              (0 to size of events list - 1).
+     * @param user The user to be registered for the event. The user's details and event list
+     *             are used to determine if they are already registered.
+     */
     public void registerUserForEvent(int index, User user) {
         if (index >= 0 && index < events.size()) {
             Event event = events.get(index);
@@ -140,12 +147,18 @@ public class EventManager {
     }
 
 
-
+    /**
+     * Unregisters a user for a specified event.
+     *
+     * @param index The index of the event in the events list. It should be within the valid range
+     *              (0 to size of events list - 1).
+     * @param user The user to be unregistered for the event.
+     */
     public void unregisterUserFromEvent(int index, User user) {
         if (index >= 0 && index < events.size()) {
             Event event = events.get(index);
             if (event.removeParticipant(user)) {
-               // System.out.println(user.getName() + " has been unregistered from the event: " + event.getTitle());
+                // System.out.println(user.getName() + " has been unregistered from the event: " + event.getTitle());
             } else {
                 System.out.println(user.getName() + " is not registered for this event.");
             }
@@ -154,6 +167,12 @@ public class EventManager {
         }
     }
 
+    /**
+     * Display participants of an event.
+     *
+     * @param event the event's participants list to display.
+     *
+     */
     public void afficherInscriptions(Event event) {
         List<User> participants = event.getParticipants();
 
@@ -166,6 +185,12 @@ public class EventManager {
             }
         }
     }
+    /**
+     * Display a participant's registered events.
+     *
+     * @param participant the participant id's registered events to display.
+     *
+     */
 
     public void afficherEvenementsPourParticipant(User participant) {
         List<Event> registeredEvents = participant.getEvents();
@@ -179,7 +204,6 @@ public class EventManager {
             }
         }
     }
-
 
 
 

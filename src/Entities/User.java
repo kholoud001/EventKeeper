@@ -1,9 +1,9 @@
+package Entities;
+
+import Enums.Role;
+
 import java.util.ArrayList;
 import java.util.List;
-
-enum Role{
-    ADMIN, PARTICIPANT
-}
 
 public class User {
     private String name;
@@ -54,8 +54,6 @@ public class User {
     public String toString(){
         return "["+name+","+email+","+role+"]";
     }
-
-
 
 
 
