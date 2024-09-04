@@ -30,10 +30,9 @@ public class AdminGUI {
         this.scanner = scanner;
     }
 
-    void displayMenuAdmin() {
+    public User displayMenuAdmin() {
 
         int choix;
-
         do {
             // Display the menu
             System.out.println("\n*** Entities.Event Management Section: ***");
@@ -92,8 +91,7 @@ public class AdminGUI {
                     deleteUser();
                     break;
                 case 11:
-                    loginUser();
-                    break;
+                    return loginUser();
                 case 12:
                     generateReport();
                     break;
@@ -105,6 +103,7 @@ public class AdminGUI {
             }
 
         } while (choix != 0);
+        return currentUser;
     }
 
     //se connnecter
@@ -279,8 +278,7 @@ public class AdminGUI {
     }
 
     // add user as participant
-    public   void  loginUser() {
-
+    public User loginUser() {
         System.out.println(" ****** Log in as Participant  ************* ");
         System.out.print("Enter your name: ");
         String name = scanner.nextLine();
@@ -293,7 +291,7 @@ public class AdminGUI {
         User newUser = new User(name, email, role);
         userService.addUser(newUser);
         System.out.println("User Logged in successfully as Participant.");
-
+        return newUser;  // Return the new user object
     }
  
     //generate report

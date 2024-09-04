@@ -28,7 +28,7 @@ public class ParticipantGUI {
     }
 
     //Participant Menu
-    public void displayMenuParticipant() {
+    public User displayMenuParticipant() {
         int choice;
         do {
             System.out.println("\n***** Participant Menu *****");
@@ -47,8 +47,7 @@ public class ParticipantGUI {
                     searchEvents();
                     break;
                 case 3:
-                    switchuser();
-                    break;
+                    return switchuser();
                 case 0:
                     System.out.println("Exiting Participant Menu...");
                     break;
@@ -56,7 +55,28 @@ public class ParticipantGUI {
                     System.out.println("Invalid choice. Please try again.");
             }
         } while (choice != 0);
+        return currentUser;
     }
+
+    private User switchuser() {
+        System.out.println(" ****** Please Enter your information ************* ");
+        System.out.print("Enter your name: ");
+        String name = scanner.nextLine();
+
+        System.out.print("Enter your email: ");
+        String email = scanner.nextLine();
+
+        System.out.println("Select your role: 1. Admin 2. Participant");
+        int roleChoice = Integer.parseInt(scanner.nextLine());
+        Role role = (roleChoice == 1) ? Role.ADMIN : Role.PARTICIPANT;
+
+        User newUser = new User(name, email, role);
+        userService.addUser(newUser);
+
+        System.out.println("User added successfully as " + (role == Role.ADMIN ? "Admin." : "Participant."));
+        return newUser;  // Return the new user object
+    }
+
 
     // add user as participant
     public   void  loginUser() {
@@ -150,22 +170,5 @@ public class ParticipantGUI {
         }
     }
 
-    private void switchuser() {
-        System.out.println(" ****** Please Enter your informations ************* ");
-        System.out.print("Enter your name: ");
-        String name = scanner.nextLine();
-
-        System.out.print("Enter your email: ");
-        String email = scanner.nextLine();
-
-        System.out.println("Select your role: 1. Admin 2. Participant");
-        int roleChoice = Integer.parseInt(scanner.nextLine());
-        Role role = (roleChoice == 1) ? Role.ADMIN : Role.PARTICIPANT;
-
-        User newUser = new User(name, email, role);
-        userService.addUser(newUser);
-
-        System.out.println("User added successfully as " + (role == Role.ADMIN ? "Admin." : "Particpant."));
-    }
 
 }
