@@ -36,7 +36,7 @@ public class AdminGUI {
 
         do {
             // Display the menu
-            System.out.println("\n*** Entities.Event Management Section: ***");
+            System.out.println("\n*** Event Management Section: ***");
             System.out.println("1. Add Event");
             System.out.println("2. Modify Event");
             System.out.println("3. Delete Event");
@@ -144,7 +144,7 @@ public class AdminGUI {
 
         Event event = new Event(title, date, location, type);
         eventService.addEvent(event);
-        System.out.println("Entities.Event added successfully.");
+        System.out.println("Event added successfully.");
     }
 
     //modify event
@@ -167,7 +167,7 @@ public class AdminGUI {
 
         Event updatedEvent = new Event(title, date, location, type);
         eventService.modifyEvent(index, updatedEvent);
-        System.out.println("Entities.Event modified successfully.");
+        System.out.println("Event modified successfully.");
     }
 
     //delete event
@@ -177,12 +177,12 @@ public class AdminGUI {
         int index = Integer.parseInt(scanner.nextLine()) - 1;
 
         eventService.deleteEvent(index);
-        System.out.println("Entities.Event deleted successfully.");
+        System.out.println("Event deleted successfully.");
     }
 
     //display events
     private void displayEvents() {
-        System.out.println("\nEntities.Event List:");
+        System.out.println("\nEvent List:");
         eventService.displayEvents();
     }
 
@@ -231,7 +231,7 @@ public class AdminGUI {
 
         User updatedUser = new User(name, email, role);
         userService.modifyUser(index, updatedUser);
-        System.out.println("Entities.User modified successfully.");
+        System.out.println("User modified successfully.");
     }
 
     //display events sub
@@ -276,7 +276,7 @@ public class AdminGUI {
         System.out.print("Enter the participant number to delete: ");
         int index = Integer.parseInt(scanner.nextLine()) - 1;
         userService.removeUser(index);
-        System.out.println("Entities.User removed successfully.");
+        System.out.println("User removed successfully.");
 
     }
 

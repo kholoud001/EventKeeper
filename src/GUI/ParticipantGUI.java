@@ -88,8 +88,8 @@ public class ParticipantGUI {
         eventService.displayEvents();
 
         System.out.println("\nWould you like to:");
-        System.out.println("1. Register for an Entities.Event");
-        System.out.println("2. Unregister from an Entities.Event");
+        System.out.println("1. Register for an Event");
+        System.out.println("2. Unregister from an Event");
         System.out.println("0. Return to Menu");
         System.out.print("Choose an option: ");
         int choice = Integer.parseInt(scanner.nextLine());
