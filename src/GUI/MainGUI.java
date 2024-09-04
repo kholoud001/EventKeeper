@@ -24,15 +24,16 @@ public class MainGUI {
     public void start() {
         User currentUser = createUser();
         while (true) {
-            System.out.println("The role is " + currentUser.getRole().toString());
-
             if (currentUser.getRole() == Role.ADMIN) {
-                System.out.println("You are now an ADMIN.");
-                currentUser = adminGUI.displayMenuAdmin();  // Update currentUser after switching roles
+               // System.out.println("You are now an ADMIN.");
+                System.out.println("Welcome to the Admin GUI"+currentUser.getName());
+
+                currentUser = adminGUI.displayMenuAdmin();
             } else if (currentUser.getRole() == Role.PARTICIPANT) {
-                System.out.println("You are already participating.");
-                currentUser = participantGUI.displayMenuParticipant();  // Update currentUser after switching roles
-            }
+               // System.out.println("You are already participating.");
+                System.out.println("Welcome to the Participant GUI"+currentUser.getName());
+
+                currentUser = participantGUI.displayMenuParticipant(currentUser);            }
 
             System.out.println("Do you want to switch roles? (yes/no)");
             Scanner scanner = new Scanner(System.in);
@@ -50,12 +51,12 @@ public class MainGUI {
             User currentUser = createUser();
             System.out.println("The role is  " + " (" + currentUser.getRole().toString() + ")");
             if (currentUser != null) {
-                System.out.println("Welcome " + currentUser.getName() + " (" + currentUser.getRole().toString() + ")");
+               // System.out.println("Welcome " + currentUser.getName() + " (" + currentUser.getRole().toString() + ")");
 
                 if (currentUser.getRole() == Role.ADMIN) {
                     adminGUI.displayMenuAdmin();
                 } else if (currentUser.getRole() == Role.PARTICIPANT) {
-                    participantGUI.displayMenuParticipant();
+                    participantGUI.displayMenuParticipant(currentUser);
                 } else {
                     System.out.println("Invalid role. Exiting...");
                     break;

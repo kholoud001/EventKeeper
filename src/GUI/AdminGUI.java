@@ -33,6 +33,7 @@ public class AdminGUI {
     public User displayMenuAdmin() {
 
         int choix;
+
         do {
             // Display the menu
             System.out.println("\n*** Entities.Event Management Section: ***");
@@ -91,7 +92,7 @@ public class AdminGUI {
                     deleteUser();
                     break;
                 case 11:
-                    return loginUser();
+                    return createUser();
                 case 12:
                     generateReport();
                     break;
@@ -107,23 +108,24 @@ public class AdminGUI {
     }
 
     //se connnecter
-//    private void createUser() {
-//        System.out.println(" ****** Please Enter your informations ************* ");
-//        System.out.print("Enter your name: ");
-//        String name = scanner.nextLine();
-//
-//        System.out.print("Enter your email: ");
-//        String email = scanner.nextLine();
-//
-//        System.out.println("Select your role: 1. Admin 2. Participant");
-//        int roleChoice = Integer.parseInt(scanner.nextLine());
-//        Role role = (roleChoice == 1) ? Role.ADMIN : Role.PARTICIPANT;
-//
-//        User newUser = new User(name, email, role);
-//        userService.addUser(newUser);
-//
-//        System.out.println("User added successfully as " + (role == Role.ADMIN ? "Admin." : "Particpant."));
-//    }
+    private User createUser() {
+        System.out.println(" ****** Please Enter your informations ************* ");
+        System.out.print("Enter your name: ");
+        String name = scanner.nextLine();
+
+        System.out.print("Enter your email: ");
+        String email = scanner.nextLine();
+
+        System.out.println("Select your role: 1. Admin 2. Participant");
+        int roleChoice = Integer.parseInt(scanner.nextLine());
+        Role role = (roleChoice == 1) ? Role.ADMIN : Role.PARTICIPANT;
+
+        User newUser = new User(name, email, role);
+        userService.addUser(newUser);
+
+        System.out.println("User added successfully as " + (role == Role.ADMIN ? "Admin." : "Particpant."));
+        return newUser;
+    }
 
 
     // add event
@@ -170,6 +172,7 @@ public class AdminGUI {
 
     //delete event
     private  void deleteEvent() {
+        displayEvents();
         System.out.print("Enter the event number to delete: ");
         int index = Integer.parseInt(scanner.nextLine()) - 1;
 

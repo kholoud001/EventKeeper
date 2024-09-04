@@ -28,7 +28,7 @@ public class ParticipantGUI {
     }
 
     //Participant Menu
-    public User displayMenuParticipant() {
+    public User displayMenuParticipant(User currentUser) {
         int choice;
         do {
             System.out.println("\n***** Participant Menu *****");
@@ -47,7 +47,7 @@ public class ParticipantGUI {
                     searchEvents();
                     break;
                 case 3:
-                    return switchuser();
+                    return createUser();
                 case 0:
                     System.out.println("Exiting Participant Menu...");
                     break;
@@ -58,7 +58,7 @@ public class ParticipantGUI {
         return currentUser;
     }
 
-    private User switchuser() {
+    private User createUser() {
         System.out.println(" ****** Please Enter your information ************* ");
         System.out.print("Enter your name: ");
         String name = scanner.nextLine();
@@ -74,7 +74,7 @@ public class ParticipantGUI {
         userService.addUser(newUser);
 
         System.out.println("User added successfully as " + (role == Role.ADMIN ? "Admin." : "Participant."));
-        return newUser;  // Return the new user object
+        return newUser;
     }
 
 
@@ -99,8 +99,10 @@ public class ParticipantGUI {
 
 
     //display events with option to register and unregister
-    private void displayEventsWithOptions(User currentUser) {
-        System.out.println("\nEntities.Event List:");
+    private void displayEventsWithOptions(User participant) {
+        System.out.println("\nEvent List:");
+        System.out.println("Welcome to the sub Participant GUI "+participant.getName());
+
         eventService.displayEvents();
 
         System.out.println("\nWould you like to:");
@@ -109,13 +111,12 @@ public class ParticipantGUI {
         System.out.println("0. Return to Menu");
         System.out.print("Choose an option: ");
         int choice = Integer.parseInt(scanner.nextLine());
-
         switch (choice) {
             case 1:
-                registerForEvent(currentUser);
+                registerForEvent(participant);
                 break;
             case 2:
-                unregisterFromEvent(currentUser);
+                unregisterFromEvent(participant);
                 break;
             case 0:
                 break;
@@ -124,18 +125,36 @@ public class ParticipantGUI {
         }
     }
 
-    private  void registerForEvent(User user) {
-        System.out.print("Enter the event number to register: ");
-        int eventIndex = Integer.parseInt(scanner.nextLine()) - 1;
-
-        Event event = eventService.getEvent(eventIndex);
-        if (event.isParticipantRegistered(user)) {
-            System.out.println("You are already registered for this event.");
-        } else {
-            eventService.registerUserForEvent(eventIndex, user);
-            System.out.println("You have registered for the event successfully.");
-        }
+//    private  void registerForEvent(User user) {
+//        System.out.print("Enter the event number to register: ");
+//        int eventIndex = Integer.parseInt(scanner.nextLine()) - 1;
+//
+//        Event event = eventService.getEvent(eventIndex);
+//        if (event.isParticipantRegistered(user)) {
+//            System.out.println("You are already registered for this event.");
+//        } else {
+//            eventService.registerUserForEvent(eventIndex, user);
+//            System.out.println("You have registered for the event successfully.");
+//        }
+//    }
+private void registerForEvent(User user) {
+    if (user == null) {
+        System.out.println("Error: User is not logged in.");
+        return;
     }
+
+    System.out.print("Enter the event number to register: ");
+    int eventIndex = Integer.parseInt(scanner.nextLine()) - 1;
+
+    Event event = eventService.getEvent(eventIndex);
+    if (event.isParticipantRegistered(user)) {
+        System.out.println("You are already registered for this event.");
+    } else {
+        eventService.registerUserForEvent(eventIndex, user);
+        System.out.println("You have registered for the event successfully.");
+    }
+}
+
 
     private  void unregisterFromEvent(User user) {
         System.out.print("Enter the event number to unregister: ");
