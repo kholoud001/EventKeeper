@@ -78,24 +78,6 @@ public class ParticipantGUI {
     }
 
 
-    // add user as participant
-    public   void  loginUser() {
-
-        System.out.println(" ****** Log in as Participant  ************* ");
-        System.out.print("Enter your name: ");
-        String name = scanner.nextLine();
-
-        System.out.print("Enter your email: ");
-        String email = scanner.nextLine();
-
-        Role role = Role.PARTICIPANT;
-
-        User newUser = new User(name, email, role);
-        userService.addUser(newUser);
-
-        System.out.println("Entities.User Logged in successfully as Participant.");
-
-    }
 
 
     //display events with option to register and unregister
@@ -126,23 +108,23 @@ public class ParticipantGUI {
     }
 
 
-private void registerForEvent(User user) {
-    if (user == null) {
-        System.out.println("Error: User is not logged in.");
-        return;
-    }
+    private void registerForEvent(User user) {
+        if (user == null) {
+            System.out.println("Error: User is not logged in.");
+            return;
+        }
 
-    System.out.print("Enter the event number to register: ");
-    int eventIndex = Integer.parseInt(scanner.nextLine()) - 1;
+        System.out.print("Enter the event number to register: ");
+        int eventIndex = Integer.parseInt(scanner.nextLine()) - 1;
 
-    Event event = eventService.getEvent(eventIndex);
-    if (event.isParticipantRegistered(user)) {
-        System.out.println("You are already registered for this event.");
-    } else {
-        eventService.registerUserForEvent(eventIndex, user);
-        System.out.println("You have registered for the event successfully.");
+        Event event = eventService.getEvent(eventIndex);
+        if (event.isParticipantRegistered(user)) {
+            System.out.println("You are already registered for this event.");
+        } else {
+            eventService.registerUserForEvent(eventIndex, user);
+            System.out.println("You have registered for the event successfully.");
+        }
     }
-}
 
 
     private  void unregisterFromEvent(User user) {

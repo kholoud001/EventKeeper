@@ -26,7 +26,6 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        // Initialize DAO and Services
         UserDAOInterface userDAO = new UserDAOImplementation();
         EventDAOInterface eventDAO = new EventDAOImplementation();
         UserServiceInterface userService = new UserServiceImpl(userDAO);

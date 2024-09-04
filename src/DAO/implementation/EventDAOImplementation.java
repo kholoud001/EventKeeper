@@ -7,7 +7,6 @@ import Entities.User;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class EventDAOImplementation implements EventDAOInterface{
     private ArrayList<Event> events;
@@ -164,9 +163,9 @@ public class EventDAOImplementation implements EventDAOInterface{
         List<User> participants = event.getParticipants();
 
         if (participants.isEmpty()) {
-            System.out.println("Il n'y a pas d'inscriptions pour cet événement.");
+            System.out.println("There are no registrations for this event.");
         } else {
-            System.out.println("Participants inscrits pour l'événement " + event.getTitle() + ":");
+            System.out.println("Participants registered for the event" + event.getTitle() + ":");
             for (int i = 0; i < participants.size(); i++) {
                 System.out.println((i + 1) + ". " + participants.get(i).getName());
             }
@@ -183,9 +182,9 @@ public class EventDAOImplementation implements EventDAOInterface{
         List<Event> registeredEvents = participant.getEvents();
 
         if (registeredEvents.isEmpty()) {
-            System.out.println(participant.getName() + " n'est inscrit à aucun événement.");
+            System.out.println(participant.getName() + " Not registered for any event.");
         } else {
-            System.out.println("Événements auxquels " + participant.getName() + " est inscrit :");
+            System.out.println("Events that \" + participant.getName() + \" is registered for:  ");
             for (int i = 0; i < registeredEvents.size(); i++) {
                 System.out.println((i + 1) + ". " + registeredEvents.get(i).getTitle());
             }

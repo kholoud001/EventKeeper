@@ -12,7 +12,6 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserServiceInterface {
     private final UserDAOInterface userDAO;
 
-    // Constructor Injection of UserDAOInterface
     public UserServiceImpl(UserDAOInterface userDAO) {
         this.userDAO = userDAO;
     }

@@ -25,14 +25,10 @@ public class MainGUI {
         User currentUser = createUser();
         while (true) {
             if (currentUser.getRole() == Role.ADMIN) {
-               // System.out.println("You are now an ADMIN.");
                 System.out.println("Welcome to the Admin GUI"+currentUser.getName());
-
                 currentUser = adminGUI.displayMenuAdmin();
             } else if (currentUser.getRole() == Role.PARTICIPANT) {
-               // System.out.println("You are already participating.");
                 System.out.println("Welcome to the Participant GUI"+currentUser.getName());
-
                 currentUser = participantGUI.displayMenuParticipant(currentUser);            }
 
             System.out.println("Do you want to switch roles? (yes/no)");
@@ -44,39 +40,6 @@ public class MainGUI {
             }
         }
     }
-
-    public void start1() {
-
-        while (true) {
-            User currentUser = createUser();
-            System.out.println("The role is  " + " (" + currentUser.getRole().toString() + ")");
-            if (currentUser != null) {
-               // System.out.println("Welcome " + currentUser.getName() + " (" + currentUser.getRole().toString() + ")");
-
-                if (currentUser.getRole() == Role.ADMIN) {
-                    adminGUI.displayMenuAdmin();
-                } else if (currentUser.getRole() == Role.PARTICIPANT) {
-                    participantGUI.displayMenuParticipant(currentUser);
-                } else {
-                    System.out.println("Invalid role. Exiting...");
-                    break;
-                }
-
-                System.out.print("Do you want to switch accounts? (yes/no): ");
-                String response = scanner.nextLine().trim().toLowerCase();
-
-                if (response.equals("yes")) {
-                    loginUser();
-                } else {
-                    System.out.println("Exiting...");
-                    break;
-                }
-            }
-        }
-    }
-
-
-
 
 
     private User createUser() {
@@ -97,24 +60,5 @@ public class MainGUI {
         System.out.println("User added successfully as " + (role == Role.ADMIN ? "Admin." : "Particpant."));
         return newUser;
     }
-
-
-    public void loginUser() {
-        System.out.println(" ****** Log in as Participant  ************* ");
-        System.out.print("Enter your name: ");
-        String name = scanner.nextLine();
-
-        System.out.print("Enter your email: ");
-        String email = scanner.nextLine();
-
-        Role role = Role.PARTICIPANT;
-
-        User newUser = new User(name, email, role);
-        userService.addUser(newUser);
-
-        System.out.println("User Logged in successfully as Participant.");
-
-    }
-
 
 }
