@@ -2,3 +2,4 @@ Participant Report
 ============================
 Name		Email		Role
 -----------------------------
+jiji	jiji@gmail.com	PARTICIPANT
