@@ -125,18 +125,7 @@ public class ParticipantGUI {
         }
     }
 
-//    private  void registerForEvent(User user) {
-//        System.out.print("Enter the event number to register: ");
-//        int eventIndex = Integer.parseInt(scanner.nextLine()) - 1;
-//
-//        Event event = eventService.getEvent(eventIndex);
-//        if (event.isParticipantRegistered(user)) {
-//            System.out.println("You are already registered for this event.");
-//        } else {
-//            eventService.registerUserForEvent(eventIndex, user);
-//            System.out.println("You have registered for the event successfully.");
-//        }
-//    }
+
 private void registerForEvent(User user) {
     if (user == null) {
         System.out.println("Error: User is not logged in.");
@@ -177,17 +166,19 @@ private void registerForEvent(User user) {
         eventService.searchEvents(date, location, type);
     }
 
-    private static Date parseDate(String dateStr) {
+    private  Date parseDate(String dateStr) {
         if (dateStr.isEmpty()) {
-            return null;
+            return new Date();
         }
         try {
             return dateFormat.parse(dateStr);
         } catch (ParseException e) {
             System.out.println("Invalid date format. Please use dd-MM-yyyy.");
-            return null;
+            return new Date();
         }
     }
+
+
 
 
 }

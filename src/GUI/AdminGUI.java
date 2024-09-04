@@ -319,13 +319,13 @@ public class AdminGUI {
     }
     private static Date parseDate(String dateStr) {
         if (dateStr.isEmpty()) {
-            return null;
+            return new Date();
         }
         try {
             return dateFormat.parse(dateStr);
         } catch (ParseException e) {
             System.out.println("Invalid date format. Please use dd-MM-yyyy.");
-            return null;
+            return new Date();
         }
     }
 
