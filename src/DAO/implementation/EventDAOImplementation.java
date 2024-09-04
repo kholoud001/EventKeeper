@@ -81,19 +81,6 @@ public class EventDAOImplementation implements EventDAOInterface{
      * @param location The location to search for.
      * @param type The type to search for.
      */
-    public void searchEvents1(Date date, String location, String type) {
-        ArrayList<Event> filteredEvents = events.stream()
-                .filter(e -> (date == null || e.getDate().equals(date)) &&
-                        (location == null || e.getLocation().equalsIgnoreCase(location)) &&
-                        (type == null || e.getType().equalsIgnoreCase(type)))
-                .collect(Collectors.toCollection(ArrayList::new));
-
-        if (filteredEvents.isEmpty()) {
-            System.out.println("No matching events found.");
-        } else {
-            filteredEvents.forEach(System.out::println);
-        }
-    }
 
     public void searchEvents(Date date, String location, String type) {
         ArrayList<Event> filteredEvents = new ArrayList<>();
